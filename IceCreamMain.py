@@ -14,7 +14,7 @@ def query1():
     # TODO: Put a query in here, provide result as HTML to result variable
     connection = connect()
     query = pd.read_sql(queries.query1, connection)
-    html_result = query.to_html()
+    html_result = query.to_html(classes=['table', 'table-striped'])
     connection.close()
     return render_template('base.html', result=html_result)
 
@@ -22,7 +22,7 @@ def query1():
 def query2():
     connection = connect()
     query = pd.read_sql(queries.query2, connection)
-    html_result = query.to_html()
+    html_result = query.to_html(classes=['table', 'table-striped'])
     connection.close()
     return render_template('base.html', result=html_result)
 
@@ -30,7 +30,7 @@ def query2():
 def query3():
     connection = connect()
     query = pd.read_sql(queries.query3, connection)
-    html_result = query.to_html()
+    html_result = query.to_html(classes=['table', 'table-striped'])
     connection.close()
     return render_template('base.html', result=html_result)
 
@@ -38,7 +38,7 @@ def query3():
 def query4():
     connection = connect()
     query = pd.read_sql(queries.query4, connection)
-    html_result = query.to_html()
+    html_result = query.to_html(classes=['table', 'table-striped'])
     connection.close()
     return render_template('base.html', result=html_result)
 
@@ -47,7 +47,7 @@ def query4():
 def query5():
     connection = connect()
     query = pd.read_sql(queries.query5, connection)
-    html_result = query.to_html()
+    html_result = query.to_html(classes=['table', 'table-striped'])
     connection.close()
     return render_template('base.html', result=html_result)
 
