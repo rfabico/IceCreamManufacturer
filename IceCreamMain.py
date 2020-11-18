@@ -28,10 +28,17 @@ def main():
              "FROM orders LEFT JOIN customers ON orders.customer_id = customers.customer_id " \
              "WHERE orders.order_date < to_date('8/10/2020','dd/mm/yyyy') AND orders.total_price > 700;"
     queryList = [query1, query2, query3, query4, query5]
-    for i in queryList:
-        data = pd.read_sql(i,connection)
-        print(data)
+    # for i in queryList:
+    #     data = pd.read_sql(i,connection)
+    #     print(data)
     connection.close()
+
+    return render_template('base.html')
+
+
+@app.route('/query1', methods=['POST'])
+def query1():
+    # TODO: Put a query in here, display a table as the result
 
     return render_template('base.html')
 
