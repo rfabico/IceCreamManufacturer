@@ -38,9 +38,9 @@ def main():
 
 @app.route('/query1', methods=['POST'])
 def query1():
-    # TODO: Put a query in here, display a table as the result
+    # TODO: Put a query in here, provide result as HTML to result variable
 
-    return render_template('base.html')
+    return render_template('base.html', result='<h1>Hello World</h1>')
 
 
 if __name__ == '__main__':
