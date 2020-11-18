@@ -10,37 +10,42 @@ app = Flask(__name__)
 def main():
     dsn_tns = cx.makedsn(config.ip, config.port, config.sid)
     connection = cx.connect(config.user_name, config.password,dsn_tns)
-    query1 = 'SELECT customers.company_name, orders.order_date, orders.total_price, orders.required_date, orders.shipped_date ' \
-             'FROM orders INNER JOIN customers ON customers.customer_id = orders.customer_id ' \
-             'WHERE shipped_date BETWEEN (sysdate - 90) AND sysdate'
-    query2 = 'SELECT flavour_name, ingredient_name FROM flavours ' \
-             'INNER JOIN flavour_ings ON flavour_ings.flavour_id = flavours.flavour_id ' \
-             'INNER JOIN ingredients ON ingredients.ingredient_id = flavour_ings.ingredient_id '
-    query3 = """SELECT supplier_city, COUNT(supplier_id) AS "NUMBER OF SUPPLIERS" """ \
-             """FROM suppliers """ \
-             """WHERE supplier_city <> 'Toronto' """ \
-             """GROUP BY supplier_city"""
-    query4 = "SELECT flavour_name FROM flavours " \
-             "WHERE flavour_id = (SELECT flavour_id FROM flavour_ings " \
-             "WHERE ingredient_id = (SELECT ingredient_id FROM ingredients WHERE ingredient_name = 'Sugar')) " \
-             "ORDER BY flavour_name ASC"
-    query5 = "SELECT orders.order_id, customers.customer_first_name , customers.customer_last_name, orders.total_price, orders.order_date " \
-             "FROM orders LEFT JOIN customers ON orders.customer_id = customers.customer_id " \
-             "WHERE orders.order_date < to_date('8/10/2020','dd/mm/yyyy') AND orders.total_price > 700"
-    queryList = [query1, query2, query3, query4, query5]
-    # for i in queryList:
-    #     data = pd.read_sql(i,connection)
-    #     print(data)
+
     connection.close()
 
     return render_template('base.html')
 
-
 @app.route('/query1', methods=['POST'])
 def query1():
     # TODO: Put a query in here, provide result as HTML to result variable
+    query = pd.readsql(queries.query1)
+    html_result = query.to_html()
+    return render_template('base.html', result=html_result)
 
-    return render_template('base.html', result='<h1>Hello World</h1>')
+@app.route('/query2',methods=['POST'])
+def query2():
+    query = pd.readsql(queries.query2)
+    html_result = query.to_html()
+    return render_template('base.html', result=html_result)
+
+@app.route('/query3',methods=['POST'])
+def query3():
+    query = pd.readsql(queries.query3)
+    html_result = query.to_html()
+    return render_template('base.html', result=html_result)
+
+@app.route('/query4',methods=['POST'])
+def query4():
+    query = pd.readsql(queries.query4)
+    html_result = query.to_html()
+    return render_template('base.html', result=html_result)
+
+
+@app.route('/query5',methods=['POST'])
+def query5():
+    query = pd.readsql(queries.query5)
+    html_result = query.to_html()
+    return render_template('base.html', result=html_result)
 
 
 if __name__ == '__main__':
