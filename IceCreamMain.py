@@ -9,7 +9,7 @@ app = Flask(__name__)
 def main():
     return render_template('base.html')
 
-@app.route('/query1', methods=['POST'])
+@app.route('/query1')
 def query1():
     # TODO: Put a query in here, provide result as HTML to result variable
     connection = connect()
@@ -18,7 +18,7 @@ def query1():
     connection.close()
     return render_template('base.html', result=html_result)
 
-@app.route('/query2',methods=['POST'])
+@app.route('/query2')
 def query2():
     connection = connect()
     query = pd.read_sql(queries.query2, connection)
@@ -26,7 +26,7 @@ def query2():
     connection.close()
     return render_template('base.html', result=html_result)
 
-@app.route('/query3',methods=['POST'])
+@app.route('/query3')
 def query3():
     connection = connect()
     query = pd.read_sql(queries.query3, connection)
@@ -34,7 +34,7 @@ def query3():
     connection.close()
     return render_template('base.html', result=html_result)
 
-@app.route('/query4',methods=['POST'])
+@app.route('/query4')
 def query4():
     connection = connect()
     query = pd.read_sql(queries.query4, connection)
@@ -43,7 +43,7 @@ def query4():
     return render_template('base.html', result=html_result)
 
 
-@app.route('/query5',methods=['POST'])
+@app.route('/query5')
 def query5():
     connection = connect()
     query = pd.read_sql(queries.query5, connection)
