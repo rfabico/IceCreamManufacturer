@@ -15,7 +15,7 @@ def query1():
     connection = connect()
     query = pd.read_sql(queries.query1, connection)
     html_result = query.to_html()
-    connect.close()
+    connection.close()
     return render_template('base.html', result=html_result)
 
 @app.route('/query2',methods=['POST'])
@@ -23,7 +23,7 @@ def query2():
     connection = connect()
     query = pd.read_sql(queries.query2, connection)
     html_result = query.to_html()
-    connect.close()
+    connection.close()
     return render_template('base.html', result=html_result)
 
 @app.route('/query3',methods=['POST'])
@@ -31,7 +31,7 @@ def query3():
     connection = connect()
     query = pd.read_sql(queries.query3, connection)
     html_result = query.to_html()
-    connect.close()
+    connection.close()
     return render_template('base.html', result=html_result)
 
 @app.route('/query4',methods=['POST'])
@@ -39,7 +39,7 @@ def query4():
     connection = connect()
     query = pd.read_sql(queries.query4, connection)
     html_result = query.to_html()
-    connect.close()
+    connection.close()
     return render_template('base.html', result=html_result)
 
 
@@ -48,7 +48,7 @@ def query5():
     connection = connect()
     query = pd.read_sql(queries.query5, connection)
     html_result = query.to_html()
-    connect.close()
+    connection.close()
     return render_template('base.html', result=html_result)
 
 def connect():
