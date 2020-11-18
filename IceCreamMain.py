@@ -18,35 +18,34 @@ def main():
 @app.route('/query1', methods=['POST'])
 def query1():
     # TODO: Put a query in here, provide result as HTML to result variable
-    query = pd.readsql(queries.query1)
+    query = pd.read_sql(queries.query1)
     html_result = query.to_html()
     return render_template('base.html', result=html_result)
 
 @app.route('/query2',methods=['POST'])
 def query2():
-    query = pd.readsql(queries.query2)
+    query = pd.read_sql(queries.query2)
     html_result = query.to_html()
     return render_template('base.html', result=html_result)
 
 @app.route('/query3',methods=['POST'])
 def query3():
-    query = pd.readsql(queries.query3)
+    query = pd.read_sql(queries.query3)
     html_result = query.to_html()
     return render_template('base.html', result=html_result)
 
 @app.route('/query4',methods=['POST'])
 def query4():
-    query = pd.readsql(queries.query4)
+    query = pd.read_sql(queries.query4)
     html_result = query.to_html()
     return render_template('base.html', result=html_result)
 
 
 @app.route('/query5',methods=['POST'])
 def query5():
-    query = pd.readsql(queries.query5)
+    query = pd.read_sql(queries.query5)
     html_result = query.to_html()
     return render_template('base.html', result=html_result)
-
 
 if __name__ == '__main__':
     main()
