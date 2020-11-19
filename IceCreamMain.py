@@ -52,7 +52,7 @@ def query5():
     return render_template('base.html', result=html_result)
 
 @app.route('/create')
-def create_tables():
+def populate_tables():
     fo = open('populate_tables.sql', 'r')
     allsql = fo.read()
     fo.close()
