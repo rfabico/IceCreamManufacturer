@@ -11,43 +11,73 @@ def main():
 
 @app.route('/query1')
 def query1():
-    connection = connect()
-    query = pd.read_sql(queries.query1, connection)
-    html_result = query.to_html(classes=['table', 'table-striped'])
-    connection.close()
+    # TODO: Put a query in here, provide result as HTML to result variable
+    try:
+        connection = connect()
+        query = pd.read_sql(queries.query1, connection)
+        html_result = query.to_html(classes=['table', 'table-striped'])
+        connection.close()
+    except cx.error as e:
+        errorObj, = e.args
+        print('error code: ', errorObj.code)
+        print('error message: ', errorObj.message)
+        html_result = '<h4>Query Error</h4>'
     return render_template('base.html', result=html_result)
 
 @app.route('/query2')
 def query2():
-    connection = connect()
-    query = pd.read_sql(queries.query2, connection)
-    html_result = query.to_html(classes=['table', 'table-striped'])
-    connection.close()
+    try:
+        connection = connect()
+        query = pd.read_sql(queries.query2, connection)
+        html_result = query.to_html(classes=['table', 'table-striped'])
+        connection.close()
+    except cx.error as e:
+        errorObj, = e.args
+        print('error code: ', errorObj.code)
+        print('error message: ', errorObj.message)
+        html_result = '<h4>Query Error</h4>'
     return render_template('base.html', result=html_result)
 
 @app.route('/query3')
 def query3():
-    connection = connect()
-    query = pd.read_sql(queries.query3, connection)
-    html_result = query.to_html(classes=['table', 'table-striped'])
-    connection.close()
+    try:
+        connection = connect()
+        query = pd.read_sql(queries.query3, connection)
+        html_result = query.to_html(classes=['table', 'table-striped'])
+        connection.close()
+    except cx.error as e:
+        errorObj, = e.args
+        print('error code: ', errorObj.code)
+        print('error message: ', errorObj.message)
+        html_result = '<h4>Query Error</h4>'
     return render_template('base.html', result=html_result)
 
 @app.route('/query4')
 def query4():
-    connection = connect()
-    query = pd.read_sql(queries.query4, connection)
-    html_result = query.to_html(classes=['table', 'table-striped'])
-    connection.close()
+    try:
+        connection = connect()
+        query = pd.read_sql(queries.query4, connection)
+        html_result = query.to_html(classes=['table', 'table-striped'])
+        connection.close()
+    except cx.error as e:
+        errorObj, = e.args
+        print('error code: ', errorObj.code)
+        print('error message: ', errorObj.message)
+        html_result = '<h4>Query Error</h4>'
     return render_template('base.html', result=html_result)
-
 
 @app.route('/query5')
 def query5():
-    connection = connect()
-    query = pd.read_sql(queries.query5, connection)
-    html_result = query.to_html(classes=['table', 'table-striped'])
-    connection.close()
+    try:
+        connection = connect()
+        query = pd.read_sql(queries.query5, connection)
+        html_result = query.to_html(classes=['table', 'table-striped'])
+        connection.close()
+    except cx.error as e:
+        errorObj, = e.args
+        print('error code: ', errorObj.code)
+        print('error message: ', errorObj.message)
+        html_result = '<h4>Query Error</h4>'
     return render_template('base.html', result=html_result)
 
 @app.route('/populate')
