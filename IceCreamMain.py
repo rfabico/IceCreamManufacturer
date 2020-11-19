@@ -9,6 +9,7 @@ app = Flask(__name__)
 def main():
     return render_template('base.html')
 
+
 @app.route('/query1')
 def query1():
     # TODO: Put a query in here, provide result as HTML to result variable
@@ -21,6 +22,8 @@ def query1():
         errorObj, = e.args
         print('error code: ', errorObj.code)
         print('error message: ', errorObj.message)
+        html_result = '<h4>Query Error</h4>'
+    except pd.DatabaseError as e:
         html_result = '<h4>Query Error</h4>'
     return render_template('base.html', result=html_result)
 
@@ -36,6 +39,8 @@ def query2():
         print('error code: ', errorObj.code)
         print('error message: ', errorObj.message)
         html_result = '<h4>Query Error</h4>'
+    except pd.DatabaseError as e:
+        html_result = '<h4>Query Error</h4>'
     return render_template('base.html', result=html_result)
 
 @app.route('/query3')
@@ -49,6 +54,8 @@ def query3():
         errorObj, = e.args
         print('error code: ', errorObj.code)
         print('error message: ', errorObj.message)
+        html_result = '<h4>Query Error</h4>'
+    except pd.DatabaseError as e:
         html_result = '<h4>Query Error</h4>'
     return render_template('base.html', result=html_result)
 
@@ -64,7 +71,10 @@ def query4():
         print('error code: ', errorObj.code)
         print('error message: ', errorObj.message)
         html_result = '<h4>Query Error</h4>'
+    except pd.DatabaseError as e:
+        html_result = '<h4>Query Error</h4>'
     return render_template('base.html', result=html_result)
+
 
 @app.route('/query5')
 def query5():
@@ -77,6 +87,8 @@ def query5():
         errorObj, = e.args
         print('error code: ', errorObj.code)
         print('error message: ', errorObj.message)
+        html_result = '<h4>Query Error</h4>'
+    except pd.DatabaseError as e:
         html_result = '<h4>Query Error</h4>'
     return render_template('base.html', result=html_result)
 
