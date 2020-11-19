@@ -83,6 +83,20 @@ def create_tables():
     html_result = 'tables populated'
     return render_template('base.html', result=html_result)
 
+@app.route('/drop')
+def tables_dropped():
+    fo = open('drop_tables.sql', 'r')
+    allsql = fo.read()
+    fo.close()
+    sql_commands = allsql.split(';')
+    sql_commands = [command.strip() for command in sql_commands]
+    sql_commands = sql_commands[:-1]
+    connection = connect()
+    for command in sql_commands:
+        pd.read_sql(command, connection)
+        connection.close()
+    html_result = 'tables dropped'
+    return render_template('base.html', result=html_result)
 
 def connect():
     dsn_tns = cx.makedsn(config.ip, config.port, config.sid)
