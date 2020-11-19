@@ -123,6 +123,19 @@ def tables_dropped():
     connection.close()
     return render_template('base.html', result=html_result)
 
+@app.route('/test')
+def test_connection():
+    html_result = '<h4>connection successful/h4>'
+    try:
+        connection = connect()
+    except cx.Error as e:
+        errorObj, = e.args
+        print('error code: ', errorObj.code)
+        print('error message: ', errorObj.message)
+        html_result = '<h4>Error dropping</h4>'
+    connection.close()
+    return render_template('base.html', result=html_result)
+
 def connect():
     dsn_tns = cx.makedsn(config.ip, config.port, config.sid)
     connection = cx.connect(config.user_name, config.password,dsn_tns)
