@@ -11,7 +11,6 @@ def main():
 
 @app.route('/query1')
 def query1():
-    # TODO: Put a query in here, provide result as HTML to result variable
     connection = connect()
     query = pd.read_sql(queries.query1, connection)
     html_result = query.to_html(classes=['table', 'table-striped'])
@@ -125,7 +124,7 @@ def tables_dropped():
 
 @app.route('/test')
 def test_connection():
-    html_result = '<h4>connection successful/h4>'
+    html_result = '<h4>Connection successful</h4>'
     try:
         connection = connect()
     except cx.Error as e:
