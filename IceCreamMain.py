@@ -62,6 +62,7 @@ def populate_tables():
     sql_commands = sql_commands[:-1]
     connection = connect()
     cursor = connection.cursor()
+    html_result = '<h4>Tables populated</h4>'
     for command in sql_commands:
         try:
             cursor.execute(command)
@@ -69,9 +70,9 @@ def populate_tables():
             errorObj, = e.args
             print('error code: ', errorObj.code)
             print('error message: ', errorObj.message)
+            html_result = '<h4>Error populating</h4>'
 
     connection.close()
-    html_result = '<h4>Tables populated</h4>'
     return render_template('base.html', result=html_result)
 
 @app.route('/create')
@@ -85,6 +86,7 @@ def create_tables():
     sql_commands = sql_commands[:-1]
     connection = connect()
     cursor = connection.cursor()
+    html_result = '<h4>Tables created</h4>'
     for command in sql_commands:
         try:
             cursor.execute(command)
@@ -92,9 +94,9 @@ def create_tables():
             errorObj, = e.args
             print('error code: ', errorObj.code)
             print('error message: ', errorObj.message)
+            html_result = '<h4>Error creating</h4>'
 
     connection.close()
-    html_result = '<h4>Tables created</h4>'
     return render_template('base.html', result=html_result)
 
 @app.route('/drop')
@@ -107,6 +109,7 @@ def tables_dropped():
     sql_commands = sql_commands[:-1]
     connection = connect()
     cursor = connection.cursor()
+    html_result = '<h4>Tables dropped</h4>'
     for command in sql_commands:
         try:
             cursor.execute(command)
@@ -114,9 +117,9 @@ def tables_dropped():
             errorObj, = e.args
             print('error code: ', errorObj.code)
             print('error message: ', errorObj.message)
+            html_result = '<h4>Error dropping</h4>'
 
     connection.close()
-    html_result = '<h4>Tables dropped</h4>'
     return render_template('base.html', result=html_result)
 
 def connect():
