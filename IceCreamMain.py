@@ -61,16 +61,17 @@ def populate_tables():
     sql_commands = [command.replace('\n',' ') for command in sql_commands]
     sql_commands = sql_commands[:-1]
     connection = connect()
-    cursor = connection.cursor()
     html_result = '<h4>Tables populated</h4>'
-    for command in sql_commands:
-        try:
-            cursor.execute(command)
-        except cx.Error as e:
-            errorObj, = e.args
-            print('error code: ', errorObj.code)
-            print('error message: ', errorObj.message)
-            html_result = '<h4>Error populating</h4>'
+    with connection.cursor() as cursor:
+        for command in sql_commands:
+            try:
+                cursor.execute(command)
+                connection.commit()
+            except cx.Error as e:
+                errorObj, = e.args
+                print('error code: ', errorObj.code)
+                print('error message: ', errorObj.message)
+                html_result = '<h4>Error populating</h4>'
 
     connection.close()
     return render_template('base.html', result=html_result)
@@ -85,16 +86,16 @@ def create_tables():
     sql_commands = [command.replace('\n',' ') for command in sql_commands]
     sql_commands = sql_commands[:-1]
     connection = connect()
-    cursor = connection.cursor()
     html_result = '<h4>Tables created</h4>'
-    for command in sql_commands:
-        try:
-            cursor.execute(command)
-        except cx.Error as e:
-            errorObj, = e.args
-            print('error code: ', errorObj.code)
-            print('error message: ', errorObj.message)
-            html_result = '<h4>Error creating</h4>'
+    with connection.cursor() as cursor:
+        for command in sql_commands:
+            try:
+                cursor.execute(command)
+            except cx.Error as e:
+                errorObj, = e.args
+                print('error code: ', errorObj.code)
+                print('error message: ', errorObj.message)
+                html_result = '<h4>Error creating</h4>'
 
     connection.close()
     return render_template('base.html', result=html_result)
@@ -108,16 +109,16 @@ def tables_dropped():
     sql_commands = [command.strip() for command in sql_commands]
     sql_commands = sql_commands[:-1]
     connection = connect()
-    cursor = connection.cursor()
     html_result = '<h4>Tables dropped</h4>'
-    for command in sql_commands:
-        try:
-            cursor.execute(command)
-        except cx.Error as e:
-            errorObj, = e.args
-            print('error code: ', errorObj.code)
-            print('error message: ', errorObj.message)
-            html_result = '<h4>Error dropping</h4>'
+    with connection.cursor() as cursor:
+        for command in sql_commands:
+            try:
+                cursor.execute(command)
+            except cx.Error as e:
+                errorObj, = e.args
+                print('error code: ', errorObj.code)
+                print('error message: ', errorObj.message)
+                html_result = '<h4>Error dropping</h4>'
 
     connection.close()
     return render_template('base.html', result=html_result)
