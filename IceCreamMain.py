@@ -13,7 +13,6 @@ def main():
 
 @app.route('/query1')
 def query1():
-    # TODO: Put a query in here, provide result as HTML to result variable
     try:
         connection = connect()
         query = pd.read_sql(queries.query1, connection)
@@ -25,6 +24,7 @@ def query1():
         print('error message: ', errorObj.message)
         html_result = '<h4>Query Error</h4>'
     except Exception as e:
+        print(e)
         html_result = '<h4>Query Error</h4>'
     return render_template('base.html', result=html_result)
 
@@ -41,6 +41,7 @@ def query2():
         print('error message: ', errorObj.message)
         html_result = '<h4>Query Error</h4>'
     except Exception as e:
+        print(e)
         html_result = '<h4>Query Error</h4>'
     return render_template('base.html', result=html_result)
 
@@ -57,6 +58,7 @@ def query3():
         print('error message: ', errorObj.message)
         html_result = '<h4>Query Error</h4>'
     except Exception as e:
+        print(e)
         html_result = '<h4>Query Error</h4>'
     return render_template('base.html', result=html_result)
 
@@ -73,6 +75,7 @@ def query4():
         print('error message: ', errorObj.message)
         html_result = '<h4>Query Error</h4>'
     except Exception as e:
+        print(e)
         html_result = '<h4>Query Error</h4>'
     return render_template('base.html', result=html_result)
 
@@ -90,6 +93,7 @@ def query5():
         print('error message: ', errorObj.message)
         html_result = '<h4>Query Error</h4>'
     except Exception as e:
+        print(e)
         html_result = '<h4>Query Error</h4>'
     return render_template('base.html', result=html_result)
 
