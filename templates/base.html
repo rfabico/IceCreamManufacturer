@@ -23,21 +23,28 @@
             <form class="form-inline" action="/drop">
                 <button type="submit" class="btn btn-primary mx-2">Drop Tables</button>
             </form>
-            <form class="form-inline" action="/query1">
-                <button type="submit" class="btn btn-primary mx-2">Orders Shipped in Last 90 Days</button>
-            </form>
-            <form class="form-inline" action="/query2">
-                <button type="submit" class="btn btn-primary mx-2">List Flavours & Ingredients</button>
-            </form>
-            <form class="form-inline" action="/query3">
-                <button type="submit" class="btn btn-primary mx-2">Count Suppliers Outside Toronto</button>
-            </form>
-            <form class="form-inline" action="/query4">
-                <button type="submit" class="btn btn-primary mx-2">Flavours Without Sugar</button>
-            </form>
-            <form class="form-inline" action="/query5">
-                <button type="submit" class="btn btn-primary mx-2">Orders Before Oct. 8 Over $700</button>
-            </form>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Queries
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <form class="form-inline" action="/query1">
+                        <button type="submit" class="btn btn-primary my-2">Orders Shipped in Last 90 Days</button>
+                    </form>
+                    <form class="form-inline" action="/query2">
+                        <button type="submit" class="btn btn-primary my-2">List Flavours & Ingredients</button>
+                    </form>
+                    <form class="form-inline" action="/query3">
+                        <button type="submit" class="btn btn-primary my-2">Count Suppliers Outside Toronto</button>
+                    </form>
+                    <form class="form-inline" action="/query4">
+                        <button type="submit" class="btn btn-primary my-2">Flavours Without Sugar</button>
+                    </form>
+                    <form class="form-inline" action="/query5">
+                        <button type="submit" class="btn btn-primary my-2">Orders Before Oct. 8 Over $700</button>
+                    </form>
+                </div>
+            </li>
         </ul>
     </nav>
 
