@@ -8,10 +8,10 @@ The following Python packages need to be installed
 ```
 pip install pandas
 pip install cx_oracle
-pip install 
+pip install flask
 ```
 
-Also requires Oracle Instant Client libraries to be installed and on your machine's PATH (for macOS, use the DYLD_LIBRARY_PATH). These may be included with Oracle XE, or can be downloaded separately here: https://www.oracle.com/database/technologies/instant-client/downloads.html
+Also requires Oracle Instant Client libraries to be installed and on your machine's PATH (for macOS/Linux, you may need to use the DYLD_LIBRARY_PATH). These may be included with Oracle XE, or can be downloaded separately here: https://www.oracle.com/database/technologies/instant-client/downloads.html
 
 If downloading separately, the Basic or Basic Light libraries are sufficient for our application.
 
@@ -27,14 +27,12 @@ Run on Windows:
 ```
 set FLASK_APP=IceCreamMain
 flask run
-localhost:5000
 ```
 
-Run on Mac:
+Run on macOS/Linux:
 ```
 export FLASK_APP=IceCreamMain
 flask run
-localhost:5000
 ```
 
 # Features
