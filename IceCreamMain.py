@@ -51,18 +51,36 @@ def query5():
     connection.close()
     return render_template('base.html', result=html_result)
 
-@app.route('/create')
+@app.route('populate')
 def populate_tables():
     fo = open('populate_tables.sql', 'r')
     allsql = fo.read()
     fo.close()
     sql_commands = allsql.split(';')
     sql_commands = [command.strip() for command in sql_commands]
+    sql_commands = [command.replace('\n',' ') for command in sql_commands]
+    sql_commands = sql_commands[:-1]
     connection = connect()
     for command in sql_commands:
         pd.read_sql(command, connection)
         connection.close()
     html_result = 'tables created'
+    return render_template('base.html', result=html_result)
+
+@app.route('/create')
+def create_tables():
+    fo = open('create_tables.sql', 'r')
+    allsql = fo.read()
+    fo.close()
+    sql_commands = allsql.split(';')
+    sql_commands = [command.strip() for command in sql_commands]
+    sql_commands = [command.replace('\n',' ') for command in sql_commands]
+    sql_commands = sql_commands[:-1]
+    connection = connect()
+    for command in sql_commands:
+        pd.read_sql(command, connection)
+        connection.close()
+    html_result = 'tables populated'
     return render_template('base.html', result=html_result)
 
 
