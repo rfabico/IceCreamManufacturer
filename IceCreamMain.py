@@ -17,7 +17,7 @@ def query1():
         query = pd.read_sql(queries.query1, connection)
         html_result = query.to_html(classes=['table', 'table-striped'])
         connection.close()
-    except cx.error as e:
+    except cx.Error as e:
         errorObj, = e.args
         print('error code: ', errorObj.code)
         print('error message: ', errorObj.message)
@@ -31,7 +31,7 @@ def query2():
         query = pd.read_sql(queries.query2, connection)
         html_result = query.to_html(classes=['table', 'table-striped'])
         connection.close()
-    except cx.error as e:
+    except cx.Error as e:
         errorObj, = e.args
         print('error code: ', errorObj.code)
         print('error message: ', errorObj.message)
@@ -45,7 +45,7 @@ def query3():
         query = pd.read_sql(queries.query3, connection)
         html_result = query.to_html(classes=['table', 'table-striped'])
         connection.close()
-    except cx.error as e:
+    except cx.Error as e:
         errorObj, = e.args
         print('error code: ', errorObj.code)
         print('error message: ', errorObj.message)
@@ -59,7 +59,7 @@ def query4():
         query = pd.read_sql(queries.query4, connection)
         html_result = query.to_html(classes=['table', 'table-striped'])
         connection.close()
-    except cx.error as e:
+    except cx.Error as e:
         errorObj, = e.args
         print('error code: ', errorObj.code)
         print('error message: ', errorObj.message)
@@ -73,7 +73,7 @@ def query5():
         query = pd.read_sql(queries.query5, connection)
         html_result = query.to_html(classes=['table', 'table-striped'])
         connection.close()
-    except cx.error as e:
+    except cx.Error as e:
         errorObj, = e.args
         print('error code: ', errorObj.code)
         print('error message: ', errorObj.message)
