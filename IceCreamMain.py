@@ -61,8 +61,15 @@ def populate_tables():
     sql_commands = [command.replace('\n',' ') for command in sql_commands]
     sql_commands = sql_commands[:-1]
     connection = connect()
+    cursor = connection.cursor()
     for command in sql_commands:
-        pd.read_sql(command, connection)
+        try:
+            cursor.execute(command)
+        except cx.Error as e:
+            errorObj, = e.args
+            print('error code: ', errorObj.code)
+            print('error message: ', errorObj.message)
+
     connection.close()
     html_result = 'tables created'
     return render_template('base.html', result=html_result)
@@ -77,8 +84,15 @@ def create_tables():
     sql_commands = [command.replace('\n',' ') for command in sql_commands]
     sql_commands = sql_commands[:-1]
     connection = connect()
+    cursor = connection.cursor()
     for command in sql_commands:
-        pd.read_sql(command, connection)
+        try:
+            cursor.execute(command)
+        except cx.Error as e:
+            errorObj, = e.args
+            print('error code: ', errorObj.code)
+            print('error message: ', errorObj.message)
+
     connection.close()
     html_result = 'tables populated'
     return render_template('base.html', result=html_result)
@@ -92,8 +106,15 @@ def tables_dropped():
     sql_commands = [command.strip() for command in sql_commands]
     sql_commands = sql_commands[:-1]
     connection = connect()
+    cursor = connection.cusor()
     for command in sql_commands:
-        pd.read_sql(command, connection)
+        try:
+            cursor.execute(command)
+        except cx.Error as e:
+            errorObj, = e.args
+            print('error code: ', errorObj.code)
+            print('error message: ', errorObj.message)
+
     connection.close()
     html_result = 'tables dropped'
     return render_template('base.html', result=html_result)
