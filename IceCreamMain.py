@@ -10,6 +10,7 @@ def main():
     return render_template('base.html')
 
 
+
 @app.route('/query1')
 def query1():
     # TODO: Put a query in here, provide result as HTML to result variable
@@ -23,7 +24,7 @@ def query1():
         print('error code: ', errorObj.code)
         print('error message: ', errorObj.message)
         html_result = '<h4>Query Error</h4>'
-    except pd.DatabaseError as e:
+    except Exception as e:
         html_result = '<h4>Query Error</h4>'
     return render_template('base.html', result=html_result)
 
@@ -39,7 +40,7 @@ def query2():
         print('error code: ', errorObj.code)
         print('error message: ', errorObj.message)
         html_result = '<h4>Query Error</h4>'
-    except pd.DatabaseError as e:
+    except Exception as e:
         html_result = '<h4>Query Error</h4>'
     return render_template('base.html', result=html_result)
 
@@ -55,7 +56,7 @@ def query3():
         print('error code: ', errorObj.code)
         print('error message: ', errorObj.message)
         html_result = '<h4>Query Error</h4>'
-    except pd.DatabaseError as e:
+    except Exception as e:
         html_result = '<h4>Query Error</h4>'
     return render_template('base.html', result=html_result)
 
@@ -71,7 +72,7 @@ def query4():
         print('error code: ', errorObj.code)
         print('error message: ', errorObj.message)
         html_result = '<h4>Query Error</h4>'
-    except pd.DatabaseError as e:
+    except Exception as e:
         html_result = '<h4>Query Error</h4>'
     return render_template('base.html', result=html_result)
 
@@ -88,7 +89,7 @@ def query5():
         print('error code: ', errorObj.code)
         print('error message: ', errorObj.message)
         html_result = '<h4>Query Error</h4>'
-    except pd.DatabaseError as e:
+    except Exception as e:
         html_result = '<h4>Query Error</h4>'
     return render_template('base.html', result=html_result)
 
