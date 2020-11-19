@@ -51,7 +51,7 @@ def query5():
     connection.close()
     return render_template('base.html', result=html_result)
 
-@app.route('populate')
+@app.route('/populate')
 def populate_tables():
     fo = open('populate_tables.sql', 'r')
     allsql = fo.read()
@@ -63,7 +63,7 @@ def populate_tables():
     connection = connect()
     for command in sql_commands:
         pd.read_sql(command, connection)
-        connection.close()
+    connection.close()
     html_result = 'tables created'
     return render_template('base.html', result=html_result)
 
@@ -79,7 +79,7 @@ def create_tables():
     connection = connect()
     for command in sql_commands:
         pd.read_sql(command, connection)
-        connection.close()
+    connection.close()
     html_result = 'tables populated'
     return render_template('base.html', result=html_result)
 
@@ -94,7 +94,7 @@ def tables_dropped():
     connection = connect()
     for command in sql_commands:
         pd.read_sql(command, connection)
-        connection.close()
+    connection.close()
     html_result = 'tables dropped'
     return render_template('base.html', result=html_result)
 
