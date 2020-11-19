@@ -51,6 +51,21 @@ def query5():
     connection.close()
     return render_template('base.html', result=html_result)
 
+@app.route('/create')
+def create_tables():
+    fo = open('populate_tables.sql', 'r')
+    allsql = fo.read()
+    fo.close()
+    sql_commands = allsql.split(';')
+    sql_commands = [command.strip() for command in sql_commands]
+    connection = connect()
+    for command in sql_commands:
+        pd.read_sql(command, connection)
+        connection.close()
+    html_result = 'tables created'
+    return render_template('base.html', result=html_result)
+
+
 def connect():
     dsn_tns = cx.makedsn(config.ip, config.port, config.sid)
     connection = cx.connect(config.user_name, config.password,dsn_tns)
