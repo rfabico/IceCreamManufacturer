@@ -13,7 +13,11 @@ The following Python packages need to be installed
 
 Also requires Oracle Instant Client libraries to be installed and on your machine's PATH (for macOS, use the DYLD_LIBRARY_PATH). These may be included with Oracle XE, or can be downloaded separately here: https://www.oracle.com/database/technologies/instant-client/downloads.html
 
+If downloading separately, the Basic or Basic Light libraries are sufficient for our application.
+
+For connecting to the Ryerson Oracle database, you must install and run the VPN as per the course instructions.
+
 # Running the Application
 First, make sure the `FLASK_APP` environment variable is set to `IceCreamMain`. Then, from the root directory of the project, run `flask run`.
 
-The app should then be accessible from `localhost:5000` on any web browser.
+The app should then be accessible from `localhost:5000` on any web browser. Make sure your VPN is running before performing any actions, so that the database connection works.
