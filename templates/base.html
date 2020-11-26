@@ -16,15 +16,153 @@
             <form class="form-inline" action="/test">
                 <button type="submit" class="btn btn-primary mx-2">Test Connection</button>
             </form>
-            <form class="form-inline" action="/create">
-                <button type="submit" class="btn btn-primary mx-2">Create Tables</button>
-            </form>
-            <form class="form-inline" action="/populate">
-                <button type="submit" class="btn btn-primary mx-2">Populate Tables</button>
-            </form>
-            <form class="form-inline" action="/drop">
-                <button type="submit" class="btn btn-primary mx-2">Drop Tables</button>
-            </form>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="createDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Create Tables
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <form class="form-inline" action="/create?table=all">
+                        <button type="submit" class="btn btn-primary my-2">All</button>
+                    </form>
+                    <form class="form-inline" action="/create?table=flavours">
+                        <button type="submit" class="btn btn-primary my-2">Flavours</button>
+                    </form>
+                    <form class="form-inline" action="/create?table=ingredients">
+                        <button type="submit" class="btn btn-primary my-2">Ingredients</button>
+                    </form>
+                    <form class="form-inline" action="/create?table=suppliers">
+                        <button type="submit" class="btn btn-primary my-2">Suppliers</button>
+                    </form>
+                    <form class="form-inline" action="/create?table=brands">
+                        <button type="submit" class="btn btn-primary my-2">Brands</button>
+                    </form>
+                    <form class="form-inline" action="/create?table=statuses">
+                        <button type="submit" class="btn btn-primary my-2">Statuses</button>
+                    </form>
+                    <form class="form-inline" action="/create?table=statuses">
+                        <button type="submit" class="btn btn-primary my-2">Statuses</button>
+                    </form>
+                    <form class="form-inline" action="/create?table=customers">
+                        <button type="submit" class="btn btn-primary my-2">Customers</button>
+                    </form>
+                    <form class="form-inline" action="/create?table=sizes">
+                        <button type="submit" class="btn btn-primary my-2">Sizes</button>
+                    </form>
+                    <form class="form-inline" action="/create?table=products">
+                        <button type="submit" class="btn btn-primary my-2">Products</button>
+                    </form>
+                    <form class="form-inline" action="/create?table=flavour_ings">
+                        <button type="submit" class="btn btn-primary my-2">Flavour-Ingredients</button>
+                    </form>
+                    <form class="form-inline" action="/create?table=favourites">
+                        <button type="submit" class="btn btn-primary my-2">Favourites</button>
+                    </form>
+                    <form class="form-inline" action="/create?table=orders">
+                        <button type="submit" class="btn btn-primary my-2">Orders</button>
+                    </form>
+                    <form class="form-inline" action="/create?table=order_prod">
+                        <button type="submit" class="btn btn-primary my-2">Order-Products</button>
+                    </form>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="populateDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Populate Tables
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <form class="form-inline" action="/populate?table=all">
+                        <button type="submit" class="btn btn-primary my-2">All</button>
+                    </form>
+                    <form class="form-inline" action="/populate?table=flavours">
+                        <button type="submit" class="btn btn-primary my-2">Flavours</button>
+                    </form>
+                    <form class="form-inline" action="/populate?table=ingredients">
+                        <button type="submit" class="btn btn-primary my-2">Ingredients</button>
+                    </form>
+                    <form class="form-inline" action="/populate?table=suppliers">
+                        <button type="submit" class="btn btn-primary my-2">Suppliers</button>
+                    </form>
+                    <form class="form-inline" action="/populate?table=brands">
+                        <button type="submit" class="btn btn-primary my-2">Brands</button>
+                    </form>
+                    <form class="form-inline" action="/populate?table=statuses">
+                        <button type="submit" class="btn btn-primary my-2">Statuses</button>
+                    </form>
+                    <form class="form-inline" action="/populate?table=statuses">
+                        <button type="submit" class="btn btn-primary my-2">Statuses</button>
+                    </form>
+                    <form class="form-inline" action="/populate?table=customers">
+                        <button type="submit" class="btn btn-primary my-2">Customers</button>
+                    </form>
+                    <form class="form-inline" action="/populate?table=sizes">
+                        <button type="submit" class="btn btn-primary my-2">Sizes</button>
+                    </form>
+                    <form class="form-inline" action="/populate?table=products">
+                        <button type="submit" class="btn btn-primary my-2">Products</button>
+                    </form>
+                    <form class="form-inline" action="/populate?table=flavour_ings">
+                        <button type="submit" class="btn btn-primary my-2">Flavour-Ingredients</button>
+                    </form>
+                    <form class="form-inline" action="/populate?table=favourites">
+                        <button type="submit" class="btn btn-primary my-2">Favourites</button>
+                    </form>
+                    <form class="form-inline" action="/populate?table=orders">
+                        <button type="submit" class="btn btn-primary my-2">Orders</button>
+                    </form>
+                    <form class="form-inline" action="/populate?table=order_prod">
+                        <button type="submit" class="btn btn-primary my-2">Order-Products</button>
+                    </form>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Drop Tables
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <form class="form-inline" action="/drop?table=all">
+                        <button type="submit" class="btn btn-primary my-2">All</button>
+                    </form>
+                    <form class="form-inline" action="/drop?table=flavours">
+                        <button type="submit" class="btn btn-primary my-2">Flavours</button>
+                    </form>
+                    <form class="form-inline" action="/drop?table=ingredients">
+                        <button type="submit" class="btn btn-primary my-2">Ingredients</button>
+                    </form>
+                    <form class="form-inline" action="/drop?table=suppliers">
+                        <button type="submit" class="btn btn-primary my-2">Suppliers</button>
+                    </form>
+                    <form class="form-inline" action="/drop?table=brands">
+                        <button type="submit" class="btn btn-primary my-2">Brands</button>
+                    </form>
+                    <form class="form-inline" action="/drop?table=statuses">
+                        <button type="submit" class="btn btn-primary my-2">Statuses</button>
+                    </form>
+                    <form class="form-inline" action="/drop?table=statuses">
+                        <button type="submit" class="btn btn-primary my-2">Statuses</button>
+                    </form>
+                    <form class="form-inline" action="/drop?table=customers">
+                        <button type="submit" class="btn btn-primary my-2">Customers</button>
+                    </form>
+                    <form class="form-inline" action="/drop?table=sizes">
+                        <button type="submit" class="btn btn-primary my-2">Sizes</button>
+                    </form>
+                    <form class="form-inline" action="/drop?table=products">
+                        <button type="submit" class="btn btn-primary my-2">Products</button>
+                    </form>
+                    <form class="form-inline" action="/drop?table=flavour_ings">
+                        <button type="submit" class="btn btn-primary my-2">Flavour-Ingredients</button>
+                    </form>
+                    <form class="form-inline" action="/drop?table=favourites">
+                        <button type="submit" class="btn btn-primary my-2">Favourites</button>
+                    </form>
+                    <form class="form-inline" action="/drop?table=orders">
+                        <button type="submit" class="btn btn-primary my-2">Orders</button>
+                    </form>
+                    <form class="form-inline" action="/drop?table=order_prod">
+                        <button type="submit" class="btn btn-primary my-2">Order-Products</button>
+                    </form>
+                </div>
+            </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="queryDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Queries
@@ -52,43 +190,43 @@
                     Show Table
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <form class="form-inline" action="/flavours">
+                    <form class="form-inline" action="/show?table=flavours">
                         <button type="submit" class="btn btn-primary my-2">Flavours</button>
                     </form>
-                    <form class="form-inline" action="/ingredients">
+                    <form class="form-inline" action="/show?table=ingredients">
                         <button type="submit" class="btn btn-primary my-2">Ingredients</button>
                     </form>
-                    <form class="form-inline" action="/suppliers">
+                    <form class="form-inline" action="/show?table=suppliers">
                         <button type="submit" class="btn btn-primary my-2">Suppliers</button>
                     </form>
-                    <form class="form-inline" action="/brands">
+                    <form class="form-inline" action="/show?table=brands">
                         <button type="submit" class="btn btn-primary my-2">Brands</button>
                     </form>
-                    <form class="form-inline" action="/statuses">
+                    <form class="form-inline" action="/show?table=statuses">
                         <button type="submit" class="btn btn-primary my-2">Statuses</button>
                     </form>
-                    <form class="form-inline" action="/statuses">
+                    <form class="form-inline" action="/show?table=statuses">
                         <button type="submit" class="btn btn-primary my-2">Statuses</button>
                     </form>
-                    <form class="form-inline" action="/customers">
+                    <form class="form-inline" action="/show?table=customers">
                         <button type="submit" class="btn btn-primary my-2">Customers</button>
                     </form>
-                    <form class="form-inline" action="/sizes">
+                    <form class="form-inline" action="/show?table=sizes">
                         <button type="submit" class="btn btn-primary my-2">Sizes</button>
                     </form>
-                    <form class="form-inline" action="/products">
+                    <form class="form-inline" action="/show?table=products">
                         <button type="submit" class="btn btn-primary my-2">Products</button>
                     </form>
-                    <form class="form-inline" action="/flavour_ings">
+                    <form class="form-inline" action="/show?table=flavour_ings">
                         <button type="submit" class="btn btn-primary my-2">Flavour-Ingredients</button>
                     </form>
-                    <form class="form-inline" action="/favourites">
+                    <form class="form-inline" action="/show?table=favourites">
                         <button type="submit" class="btn btn-primary my-2">Favourites</button>
                     </form>
-                    <form class="form-inline" action="/orders">
+                    <form class="form-inline" action="/show?table=orders">
                         <button type="submit" class="btn btn-primary my-2">Orders</button>
                     </form>
-                    <form class="form-inline" action="/order_prod">
+                    <form class="form-inline" action="/show?table=order_prod">
                         <button type="submit" class="btn btn-primary my-2">Order-Products</button>
                     </form>
                 </div>
