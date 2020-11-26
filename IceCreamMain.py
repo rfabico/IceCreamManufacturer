@@ -1,5 +1,5 @@
 import cx_Oracle as cx
-from flask import Flask,render_template
+from flask import Flask, render_template, redirect, url_for, request
 import pandas as pd
 import config
 import queries
@@ -9,7 +9,28 @@ app = Flask(__name__)
 def main():
     return render_template('base.html')
 
+class Person:
+  def __init__(self, name, passw):
+    self.name = name
+    self.password = passw
 
+admin = Person("admin", "adminIC5")
+user = Person("user", "userIC2")
+app_user = Person(None, None)
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    error = None
+    if request.method == 'POST':
+        if request.form['username'] == 'admin' and request.form['password'] == admin.password:
+            app_user = admin
+            return redirect(url_for('/'))
+        if request.form['username'] == 'user' and request.form['password'] == user.password:
+            app_user = user
+            return redirect(url_for('/'))
+        else:
+            error = 'Invalid Credentials. Please try again.'
+    return render_template('login.html', error=error)
 
 @app.route('/query1')
 def query1():
