@@ -36,46 +36,56 @@
                             Create Tables
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <form class="form-inline" action="/create?table=all">
+                            <form class="form-inline" method="GET" action="/create">
+                                <input type="hidden" name="table" value="all"/>
                                 <button type="submit" class="btn btn-primary my-2">All</button>
                             </form>
-                            <form class="form-inline" action="/create?table=flavours">
+                            <form class="form-inline" method="GET" action="/create">
+                                <input type="hidden" name="table" value="flavours"/>
                                 <button type="submit" class="btn btn-primary my-2">Flavours</button>
                             </form>
-                            <form class="form-inline" action="/create?table=ingredients">
+                            <form class="form-inline" method="GET" action="/create">
+                                <input type="hidden" name="table" value="ingredients"/>
                                 <button type="submit" class="btn btn-primary my-2">Ingredients</button>
                             </form>
-                            <form class="form-inline" action="/create?table=suppliers">
+                            <form class="form-inline" method="GET" action="/create">
+                                <input type="hidden" name="table" value="suppliers"/>
                                 <button type="submit" class="btn btn-primary my-2">Suppliers</button>
                             </form>
-                            <form class="form-inline" action="/create?table=brands">
+                            <form class="form-inline" method="GET" action="/create">
+                                <input type="hidden" name="table" value="brands"/>
                                 <button type="submit" class="btn btn-primary my-2">Brands</button>
                             </form>
-                            <form class="form-inline" action="/create?table=statuses">
+                            <form class="form-inline" method="GET" action="/create">
+                                <input type="hidden" name="table" value="statuses"/>
                                 <button type="submit" class="btn btn-primary my-2">Statuses</button>
                             </form>
-                            <form class="form-inline" action="/create?table=statuses">
-                                <button type="submit" class="btn btn-primary my-2">Statuses</button>
-                            </form>
-                            <form class="form-inline" action="/create?table=customers">
+                            <form class="form-inline" method="GET" action="/create">
+                                <input type="hidden" name="table" value="customers"/>
                                 <button type="submit" class="btn btn-primary my-2">Customers</button>
                             </form>
-                            <form class="form-inline" action="/create?table=sizes">
+                            <form class="form-inline" method="GET" action="/create">
+                                <input type="hidden" name="table" value="sizes"/>
                                 <button type="submit" class="btn btn-primary my-2">Sizes</button>
                             </form>
-                            <form class="form-inline" action="/create?table=products">
+                            <form class="form-inline" method="GET" action="/create">
+                                <input type="hidden" name="table" value="products"/>
                                 <button type="submit" class="btn btn-primary my-2">Products</button>
                             </form>
-                            <form class="form-inline" action="/create?table=flavour_ings">
+                            <form class="form-inline" method="GET" action="/create">
+                                <input type="hidden" name="table" value="flavour_ings"/>
                                 <button type="submit" class="btn btn-primary my-2">Flavour-Ingredients</button>
                             </form>
-                            <form class="form-inline" action="/create?table=favourites">
+                            <form class="form-inline" method="GET" action="/create">
+                                <input type="hidden" name="table" value="favourites"/>
                                 <button type="submit" class="btn btn-primary my-2">Favourites</button>
                             </form>
-                            <form class="form-inline" action="/create?table=orders">
+                            <form class="form-inline" method="GET" action="/create">
+                                <input type="hidden" name="table" value="orders"/>
                                 <button type="submit" class="btn btn-primary my-2">Orders</button>
                             </form>
-                            <form class="form-inline" action="/create?table=order_prod">
+                            <form class="form-inline" method="GET" action="/create">
+                                <input type="hidden" name="table" value="order_prod"/>
                                 <button type="submit" class="btn btn-primary my-2">Order-Products</button>
                             </form>
                         </div>
@@ -85,46 +95,56 @@
                             Populate Tables
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <form class="form-inline" action="/populate?table=all">
+                            <form class="form-inline" method="GET" action="/populate">
+                                <input type="hidden" name="table" value="all"/>
                                 <button type="submit" class="btn btn-primary my-2">All</button>
                             </form>
-                            <form class="form-inline" action="/populate?table=flavours">
+                            <form class="form-inline" method="GET" action="/populate">
+                                <input type="hidden" name="table" value="flavours"/>
                                 <button type="submit" class="btn btn-primary my-2">Flavours</button>
                             </form>
-                            <form class="form-inline" action="/populate?table=ingredients">
+                            <form class="form-inline" method="GET" action="/populate">
+                                <input type="hidden" name="table" value="ingredients"/>
                                 <button type="submit" class="btn btn-primary my-2">Ingredients</button>
                             </form>
-                            <form class="form-inline" action="/populate?table=suppliers">
+                            <form class="form-inline" method="GET" action="/populate">
+                                <input type="hidden" name="table" value="suppliers"/>
                                 <button type="submit" class="btn btn-primary my-2">Suppliers</button>
                             </form>
-                            <form class="form-inline" action="/populate?table=brands">
+                            <form class="form-inline" method="GET" action="/populate">
+                                <input type="hidden" name="table" value="brands"/>
                                 <button type="submit" class="btn btn-primary my-2">Brands</button>
                             </form>
-                            <form class="form-inline" action="/populate?table=statuses">
+                            <form class="form-inline" method="GET" action="/populate">
+                                <input type="hidden" name="table" value="statuses"/>
                                 <button type="submit" class="btn btn-primary my-2">Statuses</button>
                             </form>
-                            <form class="form-inline" action="/populate?table=statuses">
-                                <button type="submit" class="btn btn-primary my-2">Statuses</button>
-                            </form>
-                            <form class="form-inline" action="/populate?table=customers">
+                            <form class="form-inline" method="GET" action="/populate">
+                                <input type="hidden" name="table" value="customers"/>
                                 <button type="submit" class="btn btn-primary my-2">Customers</button>
                             </form>
-                            <form class="form-inline" action="/populate?table=sizes">
+                            <form class="form-inline" method="GET" action="/populate">
+                                <input type="hidden" name="table" value="sizes"/>
                                 <button type="submit" class="btn btn-primary my-2">Sizes</button>
                             </form>
-                            <form class="form-inline" action="/populate?table=products">
+                            <form class="form-inline" method="GET" action="/populate">
+                                <input type="hidden" name="table" value="products"/>
                                 <button type="submit" class="btn btn-primary my-2">Products</button>
                             </form>
-                            <form class="form-inline" action="/populate?table=flavour_ings">
+                            <form class="form-inline" method="GET" action="/populate">
+                                <input type="hidden" name="table" value="flavour_ings"/>
                                 <button type="submit" class="btn btn-primary my-2">Flavour-Ingredients</button>
                             </form>
-                            <form class="form-inline" action="/populate?table=favourites">
+                            <form class="form-inline" method="GET" action="/populate">
+                                <input type="hidden" name="table" value="favourites"/>
                                 <button type="submit" class="btn btn-primary my-2">Favourites</button>
                             </form>
-                            <form class="form-inline" action="/populate?table=orders">
+                            <form class="form-inline" method="GET" action="/populate">
+                                <input type="hidden" name="table" value="orders"/>
                                 <button type="submit" class="btn btn-primary my-2">Orders</button>
                             </form>
-                            <form class="form-inline" action="/populate?table=order_prod">
+                            <form class="form-inline" method="GET" action="/populate">
+                                <input type="hidden" name="table" value="order_prod"/>
                                 <button type="submit" class="btn btn-primary my-2">Order-Products</button>
                             </form>
                         </div>
@@ -138,43 +158,52 @@
                                 <input type="hidden" name="table" value="all"/>
                                 <button type="submit" class="btn btn-primary my-2">All</button>
                             </form>
-                            <form class="form-inline" action="/drop?table=flavours">
+                            <form class="form-inline" method="GET" action="/drop">
+                                <input type="hidden" name="table" value="flavours"/>
                                 <button type="submit" class="btn btn-primary my-2">Flavours</button>
                             </form>
-                            <form class="form-inline" action="/drop?table=ingredients">
+                            <form class="form-inline" method="GET" action="/drop">
+                                <input type="hidden" name="table" value="ingredients"/>
                                 <button type="submit" class="btn btn-primary my-2">Ingredients</button>
                             </form>
-                            <form class="form-inline" action="/drop?table=suppliers">
+                            <form class="form-inline" method="GET" action="/drop">
+                                <input type="hidden" name="table" value="suppliers"/>
                                 <button type="submit" class="btn btn-primary my-2">Suppliers</button>
                             </form>
-                            <form class="form-inline" action="/drop?table=brands">
+                            <form class="form-inline" method="GET" action="/drop">
+                                <input type="hidden" name="table" value="brands"/>
                                 <button type="submit" class="btn btn-primary my-2">Brands</button>
                             </form>
-                            <form class="form-inline" action="/drop?table=statuses">
+                            <form class="form-inline" method="GET" action="/drop">
+                                <input type="hidden" name="table" value="statuses"/>
                                 <button type="submit" class="btn btn-primary my-2">Statuses</button>
                             </form>
-                            <form class="form-inline" action="/drop?table=statuses">
-                                <button type="submit" class="btn btn-primary my-2">Statuses</button>
-                            </form>
-                            <form class="form-inline" action="/drop?table=customers">
+                            <form class="form-inline" method="GET" action="/drop">
+                                <input type="hidden" name="table" value="customers"/>
                                 <button type="submit" class="btn btn-primary my-2">Customers</button>
                             </form>
-                            <form class="form-inline" action="/drop?table=sizes">
+                            <form class="form-inline" method="GET" action="/drop">
+                                <input type="hidden" name="table" value="sizes"/>
                                 <button type="submit" class="btn btn-primary my-2">Sizes</button>
                             </form>
-                            <form class="form-inline" action="/drop?table=products">
+                            <form class="form-inline" method="GET" action="/drop">
+                                <input type="hidden" name="table" value="products"/>
                                 <button type="submit" class="btn btn-primary my-2">Products</button>
                             </form>
-                            <form class="form-inline" action="/drop?table=flavour_ings">
+                            <form class="form-inline" method="GET" action="/drop">
+                                <input type="hidden" name="table" value="flavour_ings"/>
                                 <button type="submit" class="btn btn-primary my-2">Flavour-Ingredients</button>
                             </form>
-                            <form class="form-inline" action="/drop?table=favourites">
+                            <form class="form-inline" method="GET" action="/drop">
+                                <input type="hidden" name="table" value="favourites"/>
                                 <button type="submit" class="btn btn-primary my-2">Favourites</button>
                             </form>
-                            <form class="form-inline" action="/drop?table=orders">
+                            <form class="form-inline" method="GET" action="/drop">
+                                <input type="hidden" name="table" value="orders"/>
                                 <button type="submit" class="btn btn-primary my-2">Orders</button>
                             </form>
-                            <form class="form-inline" action="/drop?table=order_prod">
+                            <form class="form-inline" method="GET" action="/drop">
+                                <input type="hidden" name="table" value="order_prod"/>
                                 <button type="submit" class="btn btn-primary my-2">Order-Products</button>
                             </form>
                         </div>
