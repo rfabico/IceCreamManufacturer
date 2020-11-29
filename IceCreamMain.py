@@ -111,6 +111,7 @@ def query4():
 
 @app.route('/query5')
 def query5():
+    global app_user
     try:
         connection = connect()
         query = pd.read_sql(queries.query5, connection)
@@ -125,45 +126,24 @@ def query5():
         print(e)
         html_result = '<h4>Query Error</h4>'
     return render_template('base.html', result=html_result, app_user=app_user)
-@app.route('/populate')
 
+@app.route('/populate')
 def populate_tables():
     global app_user
-    fo = open('sql_files/populate_tables.sql', 'r')
-    allsql = fo.read()
-    fo.close()
-    sql_commands = allsql.split(';')
-    sql_commands = [command.strip() for command in sql_commands]
-    sql_commands = [command.replace('\n',' ') for command in sql_commands]
-    sql_commands = sql_commands[:-1]
-    connection = connect()
-    html_result = '<h4>Tables populated</h4>'
-    with connection.cursor() as cursor:
-        for command in sql_commands:
-            try:
-                cursor.execute(command)
-                connection.commit()
-            except cx.Error as e:
-                errorObj, = e.args
-                print('error code: ', errorObj.code)
-                print('error message: ', errorObj.message)
-                html_result = '<h4>Error populating</h4>'
-
-    connection.close()
-    return render_template('base.html', result=html_result, app_user=app_user)
-
-def populate():
-    global app_user
-    global app_user
+    html_result = None
     table = Flask.request.args.get('table')
-    path = 'sql_files/'
-    fo = open(path + table, 'r')
-    allsql = fo.read()
-    fo.close()
-    sql_commands = allsql.split(';')
-    sql_commands = [command.strip() for command in sql_commands]
-    sql_commands = [command.replace('\n',' ') for command in sql_commands]
-    sql_commands = sql_commands[:-1]
+    if table == 'all':
+        fo = open('sql_files/populate_tables.sql', 'r')
+        allsql = fo.read()
+        fo.close()
+        sql_commands = allsql.split(';')
+        sql_commands = [command.strip() for command in sql_commands]
+        sql_commands = sql_commands[:-1]
+    else:
+        index = tables.index(table)
+        to_drop = drop.drop_tables[index]
+        pk = create.pk_list[index]
+        sql_commands = [to_drop,pk]
     connection = connect()
     with connection.cursor() as cursor:
         for command in sql_commands:
@@ -176,8 +156,13 @@ def populate():
                 print('error message: ', errorObj.message)
                 html_result = '<h4>Error populating</h4>'
     if html_result is None:
-        query = pd.read_sql('SELECT * FROM ' + table, connection)
-        html_result = query.to_html(classes=['table', 'table-striped'])
+        if table == 'all':
+            query = 'SELECT owner, table_name FROM dba_tables'
+            result = pd.read_sql(query, connection)
+            html_result = result.to_html(classes=['table', 'table-striped'])
+        else:
+            query = pd.read_sql('SELECT * FROM ' + sql_commands[0], connection)
+            html_result = query.to_html(classes=['table', 'table-striped'])
     connection.close()
     return render_template('base.html', result=html_result,app_user=app_user)
 
@@ -185,96 +170,79 @@ def populate():
 @app.route('/create')
 def create_tables():
     global app_user
-    fo = open('sql_files/create_tables.sql', 'r')
-    allsql = fo.read()
-    fo.close()
-    sql_commands = allsql.split(';')
-    sql_commands = [command.strip() for command in sql_commands]
-    sql_commands = [command.replace('\n',' ') for command in sql_commands]
-    sql_commands = sql_commands[:-1]
+    table = Flask.request.args.get('table')
+    html_result = None
+    if table == 'all':
+        fo = open('sql_files/create_tables.sql', 'r')
+        allsql = fo.read()
+        fo.close()
+        sql_commands = allsql.split(';')
+        sql_commands = [command.strip() for command in sql_commands]
+        sql_commands = sql_commands[:-1]
+    else:
+        index = tables.index(table)
+        to_drop = drop.drop_tables[index]
+        pk = create.pk_list[index]
+        sql_commands = [to_drop,pk]
     connection = connect()
-    html_result = '<h4>Tables created</h4>'
     with connection.cursor() as cursor:
         for command in sql_commands:
             try:
                 cursor.execute(command)
+                connection.commit()
             except cx.Error as e:
                 errorObj, = e.args
                 print('error code: ', errorObj.code)
                 print('error message: ', errorObj.message)
                 html_result = '<h4>Error creating</h4>'
-    connection.close()
-    return render_template('base.html', result=html_result, app_user=app_user)
-
-def create():
-    global app_user
-    table = Flask.request.args.get('table')
-    index = tables.index(table)
-    to_create = create.create_tables[index]
-    pk = create.pk_list[index]
-    connection = connect()
-    with connection.cursor() as cursor:
-        try:
-            cursor.execute(pk)
-            connection.commit()
-            cursor.execute(to_create)
-            connection.commit()
-        except cx.Error as e:
-            errorObj, = e.args
-            print('error code: ', errorObj.code)
-            print('error message: ', errorObj.message)
-            html_result = '<h4>Error creating</h4>'
     if html_result is None:
-        query = pd.read_sql('SELECT * FROM ' + table, connection)
-        html_result = query.to_html(classes=['table', 'table-striped'])
+        if table == 'all':
+            query = 'SELECT owner, table_name FROM dba_tables'
+            result = pd.read_sql(query, connection)
+            html_result = result.to_html(classes=['table', 'table-striped'])
+        else:
+            query = pd.read_sql('SELECT * FROM ' + sql_commands[0], connection)
+            html_result = query.to_html(classes=['table', 'table-striped'])
     connection.close()
     return render_template('base.html', result=html_result, app_user=app_user)
 
 @app.route('/drop')
 def tables_dropped():
     global app_user
-    fo = open('sql_files/drop_tables.sql', 'r')
-    allsql = fo.read()
-    fo.close()
-    sql_commands = allsql.split(';')
-    sql_commands = [command.strip() for command in sql_commands]
-    sql_commands = sql_commands[:-1]
+    table = Flask.request.args.get('table')
+    html_result = None
+    if table == 'all':
+        table = 'drop_tables.sql'
+        fo = open('sql_files/drop_tables.sql', 'r')
+        allsql = fo.read()
+        fo.close()
+        sql_commands = allsql.split(';')
+        sql_commands = [command.strip() for command in sql_commands]
+        sql_commands = sql_commands[:-1]
+    else:
+        index = tables.index(table)
+        to_drop = drop.drop_tables[index]
+        pk = create.pk_list[index]
+        sql_commands = [to_drop,pk]
     connection = connect()
-    html_result = '<h4>Tables dropped</h4>'
     with connection.cursor() as cursor:
         for command in sql_commands:
             try:
                 cursor.execute(command)
+                cursor.commit()
             except cx.Error as e:
                 errorObj, = e.args
                 print('error code: ', errorObj.code)
                 print('error message: ', errorObj.message)
                 html_result = '<h4>Error dropping</h4>'
-
-    connection.close()
-    return render_template('base.html', result=html_result, app_user=app_user)
-
-def drop():
-    global app_user
-    table = Flask.request.args.get('table')
-    index = tables.index(table)
-    to_drop = drop.drop_tables[index]
-    pk = create.pk_list[index]
-    connection = connect()
-    with connection.cursor() as cursor:
-        try:
-            cursor.execute(pk)
-            connection.commit()
-            cursor.execute(to_drop)
-            connection.commit()
-        except cx.Error as e:
-            errorObj, = e.args
-            print('error code: ', errorObj.code)
-            print('error message: ', errorObj.message)
-            html_result = '<h4>Error dropping</h4>'
     if html_result is None:
-        query = pd.read_sql('SELECT * FROM ' + table, connection)
-        html_result = query.to_html(classes=['table', 'table-striped'])
+        if table == 'all':
+            query = 'SELECT owner, table_name FROM dba_tables'
+            result = pd.read_sql(query, connection)
+            html_result = result.to_html(classes=['table', 'table-striped'])
+        else:
+            query = pd.read_sql('SELECT * FROM ' + sql_commands[0], connection)
+            html_result = query.to_html(classes=['table', 'table-striped'])
     connection.close()
     return render_template('base.html', result=html_result, app_user=app_user)
 
