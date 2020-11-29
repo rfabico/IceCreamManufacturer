@@ -5,9 +5,6 @@ import config
 import queries
 
 app = Flask(__name__)
-@app.route('/')
-def main():
-    return render_template('base.html')
 
 class Person:
   def __init__(self, name, passw):
@@ -18,22 +15,26 @@ admin = Person("admin", "adminIC5")
 user = Person("user", "userIC2")
 app_user = Person(None, None)
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/')
+def main():
+    global app_user
+    return render_template('base.html', app_user=app_user)
+
+@app.route('/login', methods=['POST'])
 def login():
+    global app_user
     error = None
-    if request.method == 'POST':
-        if request.form['username'] == 'admin' and request.form['password'] == admin.password:
-            app_user = admin
-            return redirect(url_for('/'))
-        if request.form['username'] == 'user' and request.form['password'] == user.password:
-            app_user = user
-            return redirect(url_for('/'))
-        else:
-            error = 'Invalid Credentials. Please try again.'
-    return render_template('login.html', error=error)
+    if request.form['username'] == 'admin' and request.form['password'] == admin.password:
+        app_user = admin
+    if request.form['username'] == 'user' and request.form['password'] == user.password:
+        app_user = user
+    else:
+        error = 'Invalid Credentials. Please try again.'
+    return render_template('base.html', error=error, app_user=app_user)
 
 @app.route('/query1')
 def query1():
+    global app_user
     try:
         connection = connect()
         query = pd.read_sql(queries.query1, connection)
@@ -47,10 +48,11 @@ def query1():
     except Exception as e:
         print(e)
         html_result = '<h4>Query Error</h4>'
-    return render_template('base.html', result=html_result)
+    return render_template('base.html', result=html_result, app_user=app_user)
 
 @app.route('/query2')
 def query2():
+    global app_user
     try:
         connection = connect()
         query = pd.read_sql(queries.query2, connection)
@@ -64,10 +66,11 @@ def query2():
     except Exception as e:
         print(e)
         html_result = '<h4>Query Error</h4>'
-    return render_template('base.html', result=html_result)
+    return render_template('base.html', result=html_result, app_user=app_user)
 
 @app.route('/query3')
 def query3():
+    global app_user
     try:
         connection = connect()
         query = pd.read_sql(queries.query3, connection)
@@ -81,10 +84,11 @@ def query3():
     except Exception as e:
         print(e)
         html_result = '<h4>Query Error</h4>'
-    return render_template('base.html', result=html_result)
+    return render_template('base.html', result=html_result, app_user=app_user)
 
 @app.route('/query4')
 def query4():
+    global app_user
     try:
         connection = connect()
         query = pd.read_sql(queries.query4, connection)
@@ -98,11 +102,12 @@ def query4():
     except Exception as e:
         print(e)
         html_result = '<h4>Query Error</h4>'
-    return render_template('base.html', result=html_result)
+    return render_template('base.html', result=html_result, app_user=app_user)
 
 
 @app.route('/query5')
 def query5():
+    global app_user
     try:
         connection = connect()
         query = pd.read_sql(queries.query5, connection)
@@ -116,10 +121,11 @@ def query5():
     except Exception as e:
         print(e)
         html_result = '<h4>Query Error</h4>'
-    return render_template('base.html', result=html_result)
+    return render_template('base.html', result=html_result, app_user=app_user)
 
 @app.route('/populate')
 def populate_tables():
+    global app_user
     fo = open('populate_tables.sql', 'r')
     allsql = fo.read()
     fo.close()
@@ -141,10 +147,11 @@ def populate_tables():
                 html_result = '<h4>Error populating</h4>'
 
     connection.close()
-    return render_template('base.html', result=html_result)
+    return render_template('base.html', result=html_result, app_user=app_user)
 
 @app.route('/create')
 def create_tables():
+    global app_user
     fo = open('create_tables.sql', 'r')
     allsql = fo.read()
     fo.close()
@@ -165,10 +172,11 @@ def create_tables():
                 html_result = '<h4>Error creating</h4>'
 
     connection.close()
-    return render_template('base.html', result=html_result)
+    return render_template('base.html', result=html_result, app_user=app_user)
 
 @app.route('/drop')
 def tables_dropped():
+    global app_user
     fo = open('drop_tables.sql', 'r')
     allsql = fo.read()
     fo.close()
@@ -188,10 +196,11 @@ def tables_dropped():
                 html_result = '<h4>Error dropping</h4>'
 
     connection.close()
-    return render_template('base.html', result=html_result)
+    return render_template('base.html', result=html_result, app_user=app_user)
 
 @app.route('/test')
 def test_connection():
+    global app_user
     html_result = '<h4>Connection successful</h4>'
     try:
         connection = connect()
@@ -201,7 +210,7 @@ def test_connection():
         print('error message: ', errorObj.message)
         html_result = '<h4>Error dropping</h4>'
     connection.close()
-    return render_template('base.html', result=html_result)
+    return render_template('base.html', result=html_result, app_user=app_user)
 
 def connect():
     dsn_tns = cx.makedsn(config.ip, config.port, config.sid)
