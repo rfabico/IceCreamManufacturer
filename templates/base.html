@@ -134,7 +134,8 @@
                             Drop Tables
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <form class="form-inline" action="/drop?table=all">
+                            <form class="form-inline" method="GET" action="/drop">
+                                <input type="hidden" name="table" value="all"/>
                                 <button type="submit" class="btn btn-primary my-2">All</button>
                             </form>
                             <form class="form-inline" action="/drop?table=flavours">

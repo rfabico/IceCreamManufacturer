@@ -1,5 +1,5 @@
 import cx_Oracle as cx
-from flask import Flask,render_template
+from flask import Flask,render_template,request
 import pandas as pd
 import config
 import queries
@@ -28,9 +28,9 @@ def main():
 def login():
     global app_user
     error = None
-    if Flask.request.form['username'] == 'admin' and Flask.request.form['password'] == admin.password:
+    if request.form['username'] == 'admin' and request.form['password'] == admin.password:
         app_user = admin
-    if Flask.request.form['username'] == 'user' and Flask.request.form['password'] == user.password:
+    if request.form['username'] == 'user' and request.form['password'] == user.password:
         app_user = user
     else:
         error = 'Invalid Credentials. Please try again.'
@@ -131,7 +131,7 @@ def query5():
 def populate_tables():
     global app_user
     html_result = None
-    table = Flask.request.args.get('table')
+    table = request.args.get('table')
     if table == 'all':
         fo = open('sql_files/populate_tables.sql', 'r')
         allsql = fo.read()
@@ -170,7 +170,7 @@ def populate_tables():
 @app.route('/create')
 def create_tables():
     global app_user
-    table = Flask.request.args.get('table')
+    table = request.args.get('table')
     html_result = None
     if table == 'all':
         fo = open('sql_files/create_tables.sql', 'r')
@@ -209,10 +209,9 @@ def create_tables():
 @app.route('/drop')
 def tables_dropped():
     global app_user
-    table = Flask.request.args.get('table')
+    table = request.args.get('table')
     html_result = None
     if table == 'all':
-        table = 'drop_tables.sql'
         fo = open('sql_files/drop_tables.sql', 'r')
         allsql = fo.read()
         fo.close()
@@ -229,20 +228,14 @@ def tables_dropped():
         for command in sql_commands:
             try:
                 cursor.execute(command)
-                cursor.commit()
+                connection.commit()
             except cx.Error as e:
                 errorObj, = e.args
                 print('error code: ', errorObj.code)
                 print('error message: ', errorObj.message)
                 html_result = '<h4>Error dropping</h4>'
     if html_result is None:
-        if table == 'all':
-            query = 'SELECT owner, table_name FROM dba_tables'
-            result = pd.read_sql(query, connection)
-            html_result = result.to_html(classes=['table', 'table-striped'])
-        else:
-            query = pd.read_sql('SELECT * FROM ' + sql_commands[0], connection)
-            html_result = query.to_html(classes=['table', 'table-striped'])
+        html_result = '<h4>Tables dropped</h4>'
     connection.close()
     return render_template('base.html', result=html_result, app_user=app_user)
 
