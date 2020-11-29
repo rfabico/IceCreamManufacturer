@@ -163,7 +163,7 @@ def populate_tables():
             result = pd.read_sql(query, connection)
             html_result = result.to_html(classes=['table', 'table-striped'])
         else:
-            query = pd.read_sql('SELECT * FROM ' + sql_commands[0], connection)
+            query = pd.read_sql('SELECT * FROM ' + table, connection)
             html_result = query.to_html(classes=['table', 'table-striped'])
     connection.close()
     return render_template('base.html', result=html_result,app_user=app_user)
@@ -191,7 +191,7 @@ def create_tables():
         for command in sql_commands:
             try:
                 cursor.execute(command)
-                cursor.commit()
+                connection.commit()
             except cx.Error as e:
                 errorObj, = e.args
                 print('error code: ', errorObj.code)
@@ -203,7 +203,7 @@ def create_tables():
             result = pd.read_sql(query, connection)
             html_result = result.to_html(classes=['table', 'table-striped'])
         else:
-            query = pd.read_sql('SELECT * FROM ' + sql_commands[0], connection)
+            query = pd.read_sql('SELECT * FROM ' + table, connection)
             html_result = query.to_html(classes=['table', 'table-striped'])
     connection.close()
     return render_template('base.html', result=html_result, app_user=app_user)
@@ -223,14 +223,14 @@ def tables_dropped():
     else:
         index = tables.index(table)
         to_drop = drop.drop_tables[index]
-        pk = create.pk_list[index]
+        pk = drop.pk_list[index]
         sql_commands = [to_drop,pk]
     connection = connect()
     with connection.cursor() as cursor:
         for command in sql_commands:
             try:
                 cursor.execute(command)
-                cursor.commit()
+                connection.commit()
             except cx.Error as e:
                 errorObj, = e.args
                 print('error code: ', errorObj.code)
