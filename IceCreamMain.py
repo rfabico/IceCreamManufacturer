@@ -1,14 +1,15 @@
 import cx_Oracle as cx
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask,render_template
 import pandas as pd
 import config
 import queries
+import create
+import drop
 
 app = Flask(__name__)
 
 tables = ['flavours', 'ingredients', 'brands', 'suppliers', 'customers', 'statuses', 'sizes', 'products', 'flavour_ing',
           'favourites', 'orders', 'order_prod']
-
 class Person:
   def __init__(self, name, passw):
     self.name = name
@@ -27,13 +28,14 @@ def main():
 def login():
     global app_user
     error = None
-    if request.form['username'] == 'admin' and request.form['password'] == admin.password:
+    if Flask.request.form['username'] == 'admin' and Flask.request.form['password'] == admin.password:
         app_user = admin
-    if request.form['username'] == 'user' and request.form['password'] == user.password:
+    if Flask.request.form['username'] == 'user' and Flask.request.form['password'] == user.password:
         app_user = user
     else:
         error = 'Invalid Credentials. Please try again.'
     return render_template('base.html', error=error, app_user=app_user)
+
 
 @app.route('/query1')
 def query1():
@@ -107,10 +109,8 @@ def query4():
         html_result = '<h4>Query Error</h4>'
     return render_template('base.html', result=html_result, app_user=app_user)
 
-
 @app.route('/query5')
 def query5():
-    global app_user
     try:
         connection = connect()
         query = pd.read_sql(queries.query5, connection)
@@ -125,11 +125,11 @@ def query5():
         print(e)
         html_result = '<h4>Query Error</h4>'
     return render_template('base.html', result=html_result, app_user=app_user)
-
 @app.route('/populate')
+
 def populate_tables():
     global app_user
-    fo = open('populate_tables.sql', 'r')
+    fo = open('sql_files/populate_tables.sql', 'r')
     allsql = fo.read()
     fo.close()
     sql_commands = allsql.split(';')
@@ -151,8 +151,11 @@ def populate_tables():
 
     connection.close()
     return render_template('base.html', result=html_result, app_user=app_user)
-  
-def populate(table):
+
+def populate():
+    global app_user
+    global app_user
+    table = Flask.request.args.get('table')
     path = 'sql_files/'
     fo = open(path + table, 'r')
     allsql = fo.read()
@@ -176,12 +179,13 @@ def populate(table):
         query = pd.read_sql('SELECT * FROM ' + table, connection)
         html_result = query.to_html(classes=['table', 'table-striped'])
     connection.close()
-    return render_template('base.html', result=html_result)
+    return render_template('base.html', result=html_result,app_user=app_user)
+
 
 @app.route('/create')
 def create_tables():
     global app_user
-    fo = open('create_tables.sql', 'r')
+    fo = open('sql_files/create_tables.sql', 'r')
     allsql = fo.read()
     fo.close()
     sql_commands = allsql.split(';')
@@ -199,11 +203,12 @@ def create_tables():
                 print('error code: ', errorObj.code)
                 print('error message: ', errorObj.message)
                 html_result = '<h4>Error creating</h4>'
-
     connection.close()
     return render_template('base.html', result=html_result, app_user=app_user)
 
-def create(table):
+def create():
+    global app_user
+    table = Flask.request.args.get('table')
     index = tables.index(table)
     to_create = create.create_tables[index]
     pk = create.pk_list[index]
@@ -223,12 +228,12 @@ def create(table):
         query = pd.read_sql('SELECT * FROM ' + table, connection)
         html_result = query.to_html(classes=['table', 'table-striped'])
     connection.close()
-    return render_template('base.html', result=html_result)
-  
+    return render_template('base.html', result=html_result, app_user=app_user)
+
 @app.route('/drop')
 def tables_dropped():
     global app_user
-    fo = open('drop_tables.sql', 'r')
+    fo = open('sql_files/drop_tables.sql', 'r')
     allsql = fo.read()
     fo.close()
     sql_commands = allsql.split(';')
@@ -249,7 +254,9 @@ def tables_dropped():
     connection.close()
     return render_template('base.html', result=html_result, app_user=app_user)
 
-def drop(table):
+def drop():
+    global app_user
+    table = Flask.request.args.get('table')
     index = tables.index(table)
     to_drop = drop.drop_tables[index]
     pk = create.pk_list[index]
@@ -269,8 +276,8 @@ def drop(table):
         query = pd.read_sql('SELECT * FROM ' + table, connection)
         html_result = query.to_html(classes=['table', 'table-striped'])
     connection.close()
-    return render_template('base.html', result=html_result)
-  
+    return render_template('base.html', result=html_result, app_user=app_user)
+
 @app.route('/test')
 def test_connection():
     global app_user
@@ -293,4 +300,3 @@ def connect():
 
 if __name__ == '__main__':
     main()
-
