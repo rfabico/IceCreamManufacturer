@@ -1,5 +1,5 @@
 import cx_Oracle as cx
-from flask import Flask,render_template,request
+from flask import Flask,render_template
 import pandas as pd
 import config
 import queries
@@ -28,9 +28,9 @@ def main():
 def login():
     global app_user
     error = None
-    if request.form['username'] == 'admin' and request.form['password'] == admin.password:
+    if Flask.request.form['username'] == 'admin' and Flask.request.form['password'] == admin.password:
         app_user = admin
-    if request.form['username'] == 'user' and request.form['password'] == user.password:
+    if Flask.request.form['username'] == 'user' and Flask.request.form['password'] == user.password:
         app_user = user
     else:
         error = 'Invalid Credentials. Please try again.'
@@ -131,7 +131,7 @@ def query5():
 def populate_tables():
     global app_user
     html_result = None
-    table = request.args.get('table')
+    table = Flask.request.args.get('table')
     if table == 'all':
         fo = open('sql_files/populate_tables.sql', 'r')
         allsql = fo.read()
@@ -140,10 +140,12 @@ def populate_tables():
         sql_commands = [command.strip() for command in sql_commands]
         sql_commands = sql_commands[:-1]
     else:
-        index = tables.index(table)
-        to_drop = drop.drop_tables[index]
-        pk = create.pk_list[index]
-        sql_commands = [to_drop,pk]
+        fo = open('sql_files/' + table +'.sql','r')
+        allsql = fo.read()
+        fo.close()
+        sql_commands = allsql.split(';')
+        sql_commands = [command.strip() for command in sql_commands]
+        sql_commands = sql_commands[:-1]
     connection = connect()
     with connection.cursor() as cursor:
         for command in sql_commands:
@@ -170,7 +172,7 @@ def populate_tables():
 @app.route('/create')
 def create_tables():
     global app_user
-    table = request.args.get('table')
+    table = Flask.request.args.get('table')
     html_result = None
     if table == 'all':
         fo = open('sql_files/create_tables.sql', 'r')
@@ -181,15 +183,15 @@ def create_tables():
         sql_commands = sql_commands[:-1]
     else:
         index = tables.index(table)
-        to_drop = drop.drop_tables[index]
+        to_create = create.create_tables[index]
         pk = create.pk_list[index]
-        sql_commands = [to_drop,pk]
+        sql_commands = [to_create,pk]
     connection = connect()
     with connection.cursor() as cursor:
         for command in sql_commands:
             try:
                 cursor.execute(command)
-                connection.commit()
+                cursor.commit()
             except cx.Error as e:
                 errorObj, = e.args
                 print('error code: ', errorObj.code)
@@ -209,7 +211,7 @@ def create_tables():
 @app.route('/drop')
 def tables_dropped():
     global app_user
-    table = request.args.get('table')
+    table = Flask.request.args.get('table')
     html_result = None
     if table == 'all':
         fo = open('sql_files/drop_tables.sql', 'r')
@@ -228,7 +230,7 @@ def tables_dropped():
         for command in sql_commands:
             try:
                 cursor.execute(command)
-                connection.commit()
+                cursor.commit()
             except cx.Error as e:
                 errorObj, = e.args
                 print('error code: ', errorObj.code)
