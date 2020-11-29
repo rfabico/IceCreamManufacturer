@@ -159,7 +159,7 @@ def populate_tables():
                 html_result = '<h4>Error populating</h4>'
     if html_result is None:
         if table == 'all':
-            query = 'SELECT owner, table_name FROM dba_tables'
+            query = 'SELECT table_name FROM all_tables WHERE owner=\'RCANLAS\''
             result = pd.read_sql(query, connection)
             html_result = result.to_html(classes=['table', 'table-striped'])
         else:
@@ -199,7 +199,7 @@ def create_tables():
                 html_result = '<h4>Error creating</h4>'
     if html_result is None:
         if table == 'all':
-            query = 'SELECT owner, table_name FROM dba_tables'
+            query = 'SELECT table_name FROM all_tables WHERE owner=\'RCANLAS\''
             result = pd.read_sql(query, connection)
             html_result = result.to_html(classes=['table', 'table-striped'])
         else:
