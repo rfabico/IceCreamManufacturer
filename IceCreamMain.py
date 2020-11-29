@@ -152,7 +152,7 @@ def populate_tables():
     connection.close()
     return render_template('base.html', result=html_result, app_user=app_user)
   
- def populate(table):
+def populate(table):
     path = 'sql_files/'
     fo = open(path + table, 'r')
     allsql = fo.read()
@@ -203,7 +203,7 @@ def create_tables():
     connection.close()
     return render_template('base.html', result=html_result, app_user=app_user)
 
-  def create(table):
+def create(table):
     index = tables.index(table)
     to_create = create.create_tables[index]
     pk = create.pk_list[index]
