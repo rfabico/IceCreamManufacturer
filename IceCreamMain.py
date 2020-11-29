@@ -6,6 +6,9 @@ import queries
 
 app = Flask(__name__)
 
+tables = ['flavours', 'ingredients', 'brands', 'suppliers', 'customers', 'statuses', 'sizes', 'products', 'flavour_ing',
+          'favourites', 'orders', 'order_prod']
+
 class Person:
   def __init__(self, name, passw):
     self.name = name
@@ -148,6 +151,32 @@ def populate_tables():
 
     connection.close()
     return render_template('base.html', result=html_result, app_user=app_user)
+  
+ def populate(table):
+    path = 'sql_files/'
+    fo = open(path + table, 'r')
+    allsql = fo.read()
+    fo.close()
+    sql_commands = allsql.split(';')
+    sql_commands = [command.strip() for command in sql_commands]
+    sql_commands = [command.replace('\n',' ') for command in sql_commands]
+    sql_commands = sql_commands[:-1]
+    connection = connect()
+    with connection.cursor() as cursor:
+        for command in sql_commands:
+            try:
+                cursor.execute(command)
+                connection.commit()
+            except cx.Error as e:
+                errorObj, = e.args
+                print('error code: ', errorObj.code)
+                print('error message: ', errorObj.message)
+                html_result = '<h4>Error populating</h4>'
+    if html_result is None:
+        query = pd.read_sql('SELECT * FROM ' + table, connection)
+        html_result = query.to_html(classes=['table', 'table-striped'])
+    connection.close()
+    return render_template('base.html', result=html_result)
 
 @app.route('/create')
 def create_tables():
@@ -174,6 +203,28 @@ def create_tables():
     connection.close()
     return render_template('base.html', result=html_result, app_user=app_user)
 
+  def create(table):
+    index = tables.index(table)
+    to_create = create.create_tables[index]
+    pk = create.pk_list[index]
+    connection = connect()
+    with connection.cursor() as cursor:
+        try:
+            cursor.execute(pk)
+            connection.commit()
+            cursor.execute(to_create)
+            connection.commit()
+        except cx.Error as e:
+            errorObj, = e.args
+            print('error code: ', errorObj.code)
+            print('error message: ', errorObj.message)
+            html_result = '<h4>Error creating</h4>'
+    if html_result is None:
+        query = pd.read_sql('SELECT * FROM ' + table, connection)
+        html_result = query.to_html(classes=['table', 'table-striped'])
+    connection.close()
+    return render_template('base.html', result=html_result)
+  
 @app.route('/drop')
 def tables_dropped():
     global app_user
@@ -198,6 +249,28 @@ def tables_dropped():
     connection.close()
     return render_template('base.html', result=html_result, app_user=app_user)
 
+def drop(table):
+    index = tables.index(table)
+    to_drop = drop.drop_tables[index]
+    pk = create.pk_list[index]
+    connection = connect()
+    with connection.cursor() as cursor:
+        try:
+            cursor.execute(pk)
+            connection.commit()
+            cursor.execute(to_drop)
+            connection.commit()
+        except cx.Error as e:
+            errorObj, = e.args
+            print('error code: ', errorObj.code)
+            print('error message: ', errorObj.message)
+            html_result = '<h4>Error dropping</h4>'
+    if html_result is None:
+        query = pd.read_sql('SELECT * FROM ' + table, connection)
+        html_result = query.to_html(classes=['table', 'table-striped'])
+    connection.close()
+    return render_template('base.html', result=html_result)
+  
 @app.route('/test')
 def test_connection():
     global app_user
