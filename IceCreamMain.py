@@ -163,7 +163,7 @@ def populate_tables():
             result = pd.read_sql(query, connection)
             html_result = result.to_html(classes=['table', 'table-striped'])
         else:
-            query = pd.read_sql('SELECT * FROM ' + sql_commands[0], connection)
+            query = pd.read_sql('SELECT * FROM ' + table, connection)
             html_result = query.to_html(classes=['table', 'table-striped'])
     connection.close()
     return render_template('base.html', result=html_result,app_user=app_user)
