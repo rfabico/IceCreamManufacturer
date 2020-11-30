@@ -29,7 +29,7 @@ brands = "CREATE TABLE brands ( " \
          "rep_last_name VARCHAR2(30) NOT NULL, " \
          "rep_phone_no VARCHAR2(30) NOT NULL " \
          ")"
-brand_pk = "CREATE SEQUENCE brand_pk START WITH 1;"
+brand_pk = "CREATE SEQUENCE brand_pk START WITH 1"
 statuses = "CREATE TABLE statuses ( " \
          "status_id INTEGER PRIMARY KEY, " \
          "status_name VARCHAR2(30) NOT NULL" \
