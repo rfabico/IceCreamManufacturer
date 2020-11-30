@@ -5,6 +5,7 @@ import config
 import queries
 import create
 import drop
+import show
 
 app = Flask(__name__)
 
@@ -247,13 +248,36 @@ def test_connection():
     html_result = '<h4>Connection successful</h4>'
     try:
         connection = connect()
+        connection.close()
     except cx.Error as e:
         errorObj, = e.args
         print('error code: ', errorObj.code)
         print('error message: ', errorObj.message)
-        html_result = '<h4>Error dropping</h4>'
-    connection.close()
+        html_result = '<h4>Error connecting</h4>'
     return render_template('base.html', result=html_result, app_user=app_user)
+
+@app.route('/show')
+def show_tables():
+    global app_user
+    table = request.args.get('table')
+    index = tables.index(table)
+    query = show.show_tables[index]
+    try:
+        connection = connect()
+        query = pd.read_sql(query, connection)
+        html_result = query.to_html(classes=['table', 'table-striped'])
+        connection.close()
+    except cx.Error as e:
+        errorObj, = e.args
+        print('error code: ', errorObj.code)
+        print('error message: ', errorObj.message)
+        html_result = '<h4>Query Error</h4>'
+    except Exception as e:
+        print(e)
+        html_result = '<h4>Query Error</h4>'
+    return render_template('base.html', result=html_result, app_user=app_user)
+
+
 
 def connect():
     dsn_tns = cx.makedsn(config.ip, config.port, config.sid)
