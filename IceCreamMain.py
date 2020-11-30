@@ -9,7 +9,7 @@ import show
 
 app = Flask(__name__)
 
-tables = ['flavours', 'ingredients', 'brands', 'suppliers', 'customers', 'statuses', 'sizes', 'products', 'flavour_ing',
+tables = ['flavours', 'ingredients', 'brands', 'suppliers', 'customers', 'statuses', 'sizes', 'products', 'flavour_ings',
           'favourites', 'orders', 'order_prod']
 class Person:
   def __init__(self, name, passw):
