@@ -160,9 +160,7 @@ def populate_tables():
                 html_result = '<h4>Error populating</h4>'
     if html_result is None:
         if table == 'all':
-            query = 'SELECT table_name FROM all_tables WHERE owner=\'RCANLAS\''
-            result = pd.read_sql(query, connection)
-            html_result = result.to_html(classes=['table', 'table-striped'])
+            html_result = '<h4>All tables Populated</h4>'
         else:
             query = pd.read_sql('SELECT * FROM ' + table, connection)
             html_result = query.to_html(classes=['table', 'table-striped'])
@@ -200,9 +198,7 @@ def create_tables():
                 html_result = '<h4>Error creating</h4>'
     if html_result is None:
         if table == 'all':
-            query = 'SELECT table_name FROM all_tables WHERE owner=\'RCANLAS\''
-            result = pd.read_sql(query, connection)
-            html_result = result.to_html(classes=['table', 'table-striped'])
+            html_result = '<h4>All tables created</h4>'
         else:
             query = pd.read_sql('SELECT * FROM ' + table, connection)
             html_result = query.to_html(classes=['table', 'table-striped'])
@@ -238,7 +234,10 @@ def tables_dropped():
                 print('error message: ', errorObj.message)
                 html_result = '<h4>Error dropping</h4>'
     if html_result is None:
-        html_result = '<h4>Tables dropped</h4>'
+        if table == 'all':
+            html_result = '<h4>All tables dropped</h4>'
+        else:
+            html_result = '<h4>' + table + ' table dropped' + '</h4>'
     connection.close()
     return render_template('base.html', result=html_result, app_user=app_user)
 
