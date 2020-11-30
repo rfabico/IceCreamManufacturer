@@ -92,7 +92,7 @@ orders = "CREATE TABLE orders ( " \
          "FOREIGN KEY (customer_id) REFERENCES customers(customer_id)," \
          "FOREIGN KEY (status_id) REFERENCES statuses(status_id) " \
          ")"
-order_pk = "CREATE SEQUENCE order_id START WITH 1;"
+order_pk = "CREATE SEQUENCE order_id START WITH 1"
 order_prod = "CREATE TABLE order_products ( " \
            "order_prod_id INTEGER PRIMARY KEY, " \
            "order_id INTEGER NOT NULL, " \
